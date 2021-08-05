@@ -18,8 +18,8 @@ class _$ReviewTearOff {
 
   _Review call(
       {required UniqueId id,
-      required String body,
-      required String articleId,
+      required ReviewBody body,
+      required UniqueId articleId,
       required String date}) {
     return _Review(
       id: id,
@@ -36,8 +36,8 @@ const $Review = _$ReviewTearOff();
 /// @nodoc
 mixin _$Review {
   UniqueId get id => throw _privateConstructorUsedError;
-  String get body => throw _privateConstructorUsedError;
-  String get articleId => throw _privateConstructorUsedError;
+  ReviewBody get body => throw _privateConstructorUsedError;
+  UniqueId get articleId => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -48,7 +48,7 @@ mixin _$Review {
 abstract class $ReviewCopyWith<$Res> {
   factory $ReviewCopyWith(Review value, $Res Function(Review) then) =
       _$ReviewCopyWithImpl<$Res>;
-  $Res call({UniqueId id, String body, String articleId, String date});
+  $Res call({UniqueId id, ReviewBody body, UniqueId articleId, String date});
 }
 
 /// @nodoc
@@ -74,11 +74,11 @@ class _$ReviewCopyWithImpl<$Res> implements $ReviewCopyWith<$Res> {
       body: body == freezed
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
-              as String,
+              as ReviewBody,
       articleId: articleId == freezed
           ? _value.articleId
           : articleId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as UniqueId,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -92,7 +92,7 @@ abstract class _$ReviewCopyWith<$Res> implements $ReviewCopyWith<$Res> {
   factory _$ReviewCopyWith(_Review value, $Res Function(_Review) then) =
       __$ReviewCopyWithImpl<$Res>;
   @override
-  $Res call({UniqueId id, String body, String articleId, String date});
+  $Res call({UniqueId id, ReviewBody body, UniqueId articleId, String date});
 }
 
 /// @nodoc
@@ -119,11 +119,11 @@ class __$ReviewCopyWithImpl<$Res> extends _$ReviewCopyWithImpl<$Res>
       body: body == freezed
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
-              as String,
+              as ReviewBody,
       articleId: articleId == freezed
           ? _value.articleId
           : articleId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as UniqueId,
       date: date == freezed
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -144,9 +144,9 @@ class _$_Review implements _Review {
   @override
   final UniqueId id;
   @override
-  final String body;
+  final ReviewBody body;
   @override
-  final String articleId;
+  final UniqueId articleId;
   @override
   final String date;
 
@@ -187,16 +187,16 @@ class _$_Review implements _Review {
 abstract class _Review implements Review {
   const factory _Review(
       {required UniqueId id,
-      required String body,
-      required String articleId,
+      required ReviewBody body,
+      required UniqueId articleId,
       required String date}) = _$_Review;
 
   @override
   UniqueId get id => throw _privateConstructorUsedError;
   @override
-  String get body => throw _privateConstructorUsedError;
+  ReviewBody get body => throw _privateConstructorUsedError;
   @override
-  String get articleId => throw _privateConstructorUsedError;
+  UniqueId get articleId => throw _privateConstructorUsedError;
   @override
   String get date => throw _privateConstructorUsedError;
   @override
