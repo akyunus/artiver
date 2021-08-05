@@ -1,26 +1,26 @@
-import 'package:artiver/domain/core/failures.dart';
-import 'package:artiver/domain/core/value_object.dart';
 import 'package:dartz/dartz.dart';
 import 'package:uuid/uuid.dart';
 
-class UniqueId extends ValueObject<String> {
-  @override
-  final Either<ValueFailure<String>, String> value;
+import 'failures.dart';
+import 'value_object.dart';
 
-  // We cannot let a simple String be passed in. This would allow for possible non-unique IDs.
+/// Universal Unique Id value object
+class UniqueId extends ValueObject<String> {
+  /// We cannot let a simple String be passed in. This would allow for possible non-unique IDs.
   factory UniqueId() {
     return UniqueId._(
-      right(Uuid().v1()),
+      right(const Uuid().v1()),
     );
   }
 
   /// Used with strings we trust are unique, such as database IDs.
   factory UniqueId.fromUniqueString(String uniqueIdStr) {
-    assert(uniqueIdStr != null);
+    assert(uniqueIdStr.isEmpty, 'UniqueId string can not be empty');
     return UniqueId._(
       right(uniqueIdStr),
     );
   }
-
   const UniqueId._(this.value);
+  @override
+  final Either<ValueFailure<String>, String> value;
 }

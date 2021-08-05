@@ -5,6 +5,7 @@ import 'core_interfaces.dart';
 import 'errors.dart';
 import 'failures.dart';
 
+///
 @immutable
 abstract class ValueObject<T> implements IValidatable {
   const ValueObject();
@@ -16,8 +17,9 @@ abstract class ValueObject<T> implements IValidatable {
     return value.fold((f) => throw UnexpectedValueError(f), id);
   }
 
-  T getOrElse(T dflt) {
-    return value.getOrElse(() => dflt);
+  /// return a [defaultValue] if can not get the value
+  T getOrElse(T defaultValue) {
+    return value.getOrElse(() => defaultValue);
   }
 
   Either<ValueFailure<dynamic>, Unit> get failureOrUnit {

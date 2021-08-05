@@ -1,6 +1,7 @@
 import 'unique_id.dart';
 
 /// Validatable Interface for value objects
+// ignore: one_member_abstracts
 abstract class IValidatable {
   /// isValid processes the validate function
   bool isValid();
