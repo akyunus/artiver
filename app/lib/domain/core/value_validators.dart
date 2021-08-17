@@ -1,51 +1,60 @@
-import 'package:dartz/dartz.dart';
+import 'package:fpdart/fpdart.dart';
 
-import 'failures.dart';
+import 'value_failures.dart';
 
-/// Common Value Validator functions
+/// [validateEmailAddress] checks if email contains '@' sign,
+/// is at least 3 characters long and if '@' isn't the last character.
+///
+/// Whether the email is valid or not, the same input is a part
+/// of a return statement, but as different side of [Either].
+Either<ValueFailure<String>, String> validateEmailAddress(String input) {
+  final lastChar = input.length - 1;
 
-/// Validate if an [input] string exceeds a [maxLength]
+  final hasMinLen = input.length >= 3;
+  final hasAtChar = input.contains('@');
+  final hasAtCharAsLast = input[lastChar] == '@';
+
+  final isValid = hasMinLen && hasAtChar && !hasAtCharAsLast;
+
+  final valueFailure = ValueFailure<String>.invalidEmail(incorrectValue: input);
+
+  return isValid ? Either.right(input) : Either.left(valueFailure);
+}
+
+/// [validatePassword] checks if password contains at least 8 and maximum 16 characters,
+/// at least one uppercase letter, one lowercase letter, one number and one special character.
+///
+/// Whether the email is valid or not, the same input it a part of a return statement,
+/// but as a different site of [Either].
+Either<ValueFailure<String>, String> validatePassword(String input) {
+  const passwordRegExp =
+      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$';
+
+  final isValid = RegExp(passwordRegExp).hasMatch(input);
+  final valueFailure = ValueFailure<String>.invalidEmail(incorrectValue: input);
+
+  return isValid ? Either.right(input) : Either.left(valueFailure);
+}
+
+/// [validateMaxStringLength] checks if an [input] string exceeds a specified
+/// maximum length [maxLength]
 Either<ValueFailure<String>, String> validateMaxStringLength(
   String input,
   int maxLength,
 ) {
-  if (input.length <= maxLength) {
-    return right(input);
-  } else {
-    return left(ValueFailure.exceedingLength(
-      failedValue: input,
-      max: maxLength,
-    ));
-  }
+  final isValid = input.length <= maxLength;
+  return isValid
+      ? Either.right(input)
+      : Either.left(ValueFailure<String>.exceedingLength(
+          incorrectValue: input,
+          max: maxLength,
+        ));
 }
 
 /// Validate if an [input] string is not empty
 Either<ValueFailure<String>, String> validateStringNotEmpty(String input) {
-  if (input.isEmpty) {
-    return left(ValueFailure.empty(failedValue: input));
-  } else {
-    return right(input);
-  }
-}
-
-/// Validate if an [input] string is an email address
-Either<ValueFailure<String>, String> validateEmailAddress(String input) {
-  // Maybe not the most robust way of email validation but it's good enough
-  const emailRegex =
-      r"""^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+""";
-  if (RegExp(emailRegex).hasMatch(input)) {
-    return right(input);
-  } else {
-    return left(ValueFailure.invalidEmail(failedValue: input));
-  }
-}
-
-/// Validate if an [input] string secure enough to be a password
-Either<ValueFailure<String>, String> validatePassword(String input) {
-  // You can also add some advanced password checks (uppercase/lowercase, at least 1 number, ...)
-  if (input.length >= 6) {
-    return right(input);
-  } else {
-    return left(ValueFailure.shortPassword(failedValue: input));
-  }
+  return (input.isEmpty)
+      ? Either.left(
+          ValueFailure<String>.exceedingLength(incorrectValue: input, max: -1))
+      : Either.right(input);
 }

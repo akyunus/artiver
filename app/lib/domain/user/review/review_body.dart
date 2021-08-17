@@ -1,7 +1,7 @@
-import 'package:dartz/dartz.dart';
+import 'package:fpdart/fpdart.dart';
 
-import '../../core/failures.dart';
-import '../../core/value_object.dart';
+import '../../core/value_failures.dart';
+import '../../core/value_objects.dart';
 import '../../core/value_validators.dart';
 
 /// Body text for a review of an article

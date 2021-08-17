@@ -1,16 +1,14 @@
-import 'package:dartz/dartz.dart';
+import 'package:artiver/domain/core/value_failures.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:uuid/uuid.dart';
 
-import 'failures.dart';
-import 'value_object.dart';
+import 'value_objects.dart';
 
 /// Universal Unique Id value object
 class UniqueId extends ValueObject<String> {
   /// We cannot let a simple String be passed in. This would allow for possible non-unique IDs.
   factory UniqueId() {
-    return UniqueId._(
-      right(const Uuid().v1()),
-    );
+    return UniqueId._(Either.right(const Uuid().v1()));
   }
 
   /// Used with strings we trust are unique, such as database IDs.
